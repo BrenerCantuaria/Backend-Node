@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import controller from '../controllers/controller';
+import AlunoController from '../controllers/AlunoController';
 
 const router = new Router();
 
-router.get('/', controller.index);
+router.get('/', AlunoController.create);
 
 export default router;
