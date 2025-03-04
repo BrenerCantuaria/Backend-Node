@@ -12,8 +12,9 @@ module.exports = {
     timestamps: true,
     underscored: true,
     underscoredAll: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
+    underscored: false,  // Mantém camelCase no banco
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
   },
   dialectOptions: {
     timezone: 'America/Sao_Paulo',
