@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // inicializa a comunicação automaticamente
-import './database'
-
+import './database';
+import logger from './middlewares/logger';
 class App {
   constructor() {
     this.app = express();
@@ -16,6 +16,7 @@ class App {
   middlewares() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+    this.app.use(logger);
   }
 
   routes() {
