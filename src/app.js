@@ -1,11 +1,17 @@
 import express from 'express';
-import router from './routes/routes';
 import dotenv from 'dotenv';
 dotenv.config();
 
 // inicializa a comunicação automaticamente
 import './database';
+
+// Middlewares
 import logger from './middlewares/logger';
+
+// Routes
+import router from './routes/routes';
+import userRouter from './routes/user';
+
 class App {
   constructor() {
     this.app = express();
@@ -21,6 +27,7 @@ class App {
 
   routes() {
     this.app.use('/', router);
+    this.app.use('/users/', userRouter);
   }
 }
 
