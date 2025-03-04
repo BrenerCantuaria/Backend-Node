@@ -2,6 +2,10 @@ import express from 'express';
 import router from './routes/routes';
 import dotenv from 'dotenv';
 dotenv.config();
+
+// inicializa a comunicação automaticamente
+import './database'
+
 class App {
   constructor() {
     this.app = express();
