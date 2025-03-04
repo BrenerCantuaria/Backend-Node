@@ -1,0 +1,23 @@
+// Controladores (lógica de negócio)
+import User from '../models/User';
+
+/*
+    index -> lista todos os usuários -> GET
+    store/create -> cria um novo usuário -> POST
+    delete -> apaga um usuário -> DELETE
+    show -> mostra um usuário -> GET
+    update -> atualiza um usuário -> PATCH ou PUT
+*/
+
+class UserController {
+  async create(req, res) {
+    const user = await User.create({
+      nome: 'maria',
+      email: 'maria@example.com',
+      password: '123456789',
+    });
+    res.json(user);
+  }
+}
+
+export default new UserController();
