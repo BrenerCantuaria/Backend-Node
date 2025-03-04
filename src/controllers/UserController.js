@@ -12,11 +12,7 @@ import User from '../models/User';
 class UserController {
   async create(req, res) {
     try {
-      const user = await User.create({
-        nome: 'maria',
-        email: 'maria@example.com',
-        password: '123456789',
-      });
+      const user = await User.create(req.body);
       res.json(user);
     } catch (error) {
       // console.log(error);
