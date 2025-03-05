@@ -11,6 +11,7 @@ import logger from './middlewares/logger';
 // Routes
 import router from './routes/routes';
 import userRouter from './routes/user';
+import routerToken from './routes/token';
 
 class App {
   constructor() {
@@ -28,6 +29,7 @@ class App {
   routes() {
     this.app.use('/', router);
     this.app.use('/users/', userRouter);
+    this.app.use('/tokens/', routerToken);
   }
 }
 
