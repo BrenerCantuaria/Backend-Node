@@ -10,6 +10,15 @@ import User from '../models/User';
 */
 
 class UserController {
+  async index(req, res) {
+    try {
+      const users = await User.findAll();
+      return res.json(users);
+    } catch (error) {
+      return res.json({ error: 'Server Internal Error Find' });
+    }
+  }
+
   async create(req, res) {
     try {
       const user = await User.create(req.body);
@@ -21,6 +30,43 @@ class UserController {
           return err.message;
         }),
       });
+    }
+  }
+
+  async show(req, res) {
+    try {
+      const id = req.params.id;
+      const user = await User.findByPk(id);
+
+      if (!user) {
+        return res.status(404).json({ error: 'Usuário não encontrado' });
+      }
+
+      return res.json(user);
+    } catch (error) {
+      return res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        return res.status(400).json({ error: 'ID não enviado' });
+      }
+
+      const user = await User.findByPk(id);
+
+      if (!user) {
+        return res.status(404).json({ error: 'Usuário não encontrado' });
+      }
+
+      const userUpdated = await user.update(req.body);
+
+      return res.json(userUpdated);
+    } catch (error) {
+      return res.status(500).json({ error: 'Erro interno do servidor' });
     }
   }
 }
