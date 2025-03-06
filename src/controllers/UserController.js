@@ -22,7 +22,8 @@ class UserController {
   async create(req, res) {
     try {
       const user = await User.create(req.body);
-      res.json(user);
+      const { id, nome, email } = user;
+      res.json({ id, nome, email });
     } catch (error) {
       // console.log(error);
       res.status(400).json({
@@ -58,8 +59,9 @@ class UserController {
       }
 
       const userUpdated = await user.update(req.body);
+      const { id, nome, email } = userUpdated;
 
-      return res.json(userUpdated);
+      return res.json({ id, nome, email });
     } catch (error) {
       return res.status(500).json({ error: 'Erro interno do servidor' });
     }
@@ -67,13 +69,7 @@ class UserController {
 
   async delete(req, res) {
     try {
-      const { id } = req.params;
-
-      if (!id) {
-        return res.status(400).json({ error: 'ID não enviado' });
-      }
-
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(404).json({ error: 'Usuário não encontrado' });
@@ -81,7 +77,7 @@ class UserController {
 
       await user.destroy();
 
-      return res.status(200).json(`${user} deletado com sucesso`);
+      return res.status(200).json(`deletado com sucesso`);
     } catch (error) {
       return res.status(500).json({ error: 'Erro interno do servidor' });
     }
