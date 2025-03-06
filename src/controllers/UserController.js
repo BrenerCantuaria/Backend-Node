@@ -12,7 +12,7 @@ import User from '../models/User';
 class UserController {
   async index(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({ attributes: ['id', 'nome', 'email'] });
       return res.json(users);
     } catch (error) {
       return res.json({ error: 'Server Internal Error Find' });
@@ -35,14 +35,14 @@ class UserController {
 
   async show(req, res) {
     try {
-      const id = req.params.id;
-      const user = await User.findByPk(id);
+      const id_params = req.params.id;
+      const user = await User.findByPk(id_params);
 
       if (!user) {
         return res.status(404).json({ error: 'Usuário não encontrado' });
       }
-
-      return res.json(user);
+      const { id, nome, email } = user;
+      return res.json({ id, nome, email });
     } catch (error) {
       return res.status(500).json({ error: 'Erro interno do servidor' });
     }
@@ -50,13 +50,8 @@ class UserController {
 
   async update(req, res) {
     try {
-      const { id } = req.params;
-
-      if (!id) {
-        return res.status(400).json({ error: 'ID não enviado' });
-      }
-
-      const user = await User.findByPk(id);
+      console.log(req.userId);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(404).json({ error: 'Usuário não encontrado' });
