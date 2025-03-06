@@ -10,7 +10,6 @@ export default async (req, res, next) => {
   }
 
   const [texto, token] = authorization.split(' ');
-  console.log(token);
   try {
     const dados = jwt.verify(token, process.env.TOKEN_SECRET);
     const { id, email } = dados;
