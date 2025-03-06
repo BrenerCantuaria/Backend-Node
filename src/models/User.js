@@ -54,6 +54,10 @@ export default class User extends Model {
     });
     return this;
   }
+  // Define um relacionamento "tem muitos" (1:N).
+  static associate(models) {
+    this.hasMany(models.Turma, { foreignKey: 'user_id', as: 'turmas' });
+  }
 
   passwordIsValid(password) {
     return bcryptjs.compare(password, this.passwordHash);
