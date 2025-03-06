@@ -11,3 +11,10 @@ const connection = new Sequelize(databaseConfig);
 models.forEach((model) => {
   model.init(connection);
 });
+
+// Configurar as associações corretamente
+models.forEach((model) => {
+  if (model.associate) {
+    model.associate(connection.models);
+  }
+});
