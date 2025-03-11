@@ -14,10 +14,13 @@ export default class Aluno extends Model {
       },
       {
         sequelize,
-        tableName: 'alunos', // Garante que a tabela correta seja usada
+        tableName: 'alunos',
+        timestamps: true,
       }
     );
+  }
 
-    return this;
+  static associate(models) {
+    this.belongsTo(models.Turma, { foreignKey: 'turma_id', as: 'turma' });
   }
 }
