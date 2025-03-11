@@ -13,7 +13,7 @@ import router from './routes/routes';
 import userRouter from './routes/user';
 import routerToken from './routes/token';
 import routerTurma from './routes/turmas';
-
+import routerAluno from './routes/alunos';
 class App {
   constructor() {
     this.app = express();
@@ -28,7 +28,7 @@ class App {
   }
 
   routes() {
-    this.app.use('/', router);
+    this.app.use('/alunos/', routerAluno);
     this.app.use('/users/', userRouter);
     this.app.use('/tokens/', routerToken);
     this.app.use('/turma/', routerTurma);
