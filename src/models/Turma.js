@@ -21,7 +21,8 @@ class Turma extends Model {
   }
   //Define um relacionamento "pertence a" (1:N ou N:1)
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'professor' });
+    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'professor' }); // Uma turma pertence a um usuário 
+    this.hasMany(models.Aluno, { foreignKey: 'turma_id', as: 'alunos' }); //  Uma turma pode ter vários alunos
   }
 }
 
