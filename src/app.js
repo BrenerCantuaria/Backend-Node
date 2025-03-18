@@ -2,6 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 
+import cors from 'cors';
+
 // inicializa a comunicação automaticamente
 import './database';
 
@@ -9,7 +11,7 @@ import './database';
 import logger from './middlewares/logger';
 
 // Routes
-import router from './routes/routes';
+// import router from './routes/routes';
 import userRouter from './routes/user';
 import routerToken from './routes/token';
 import routerTurma from './routes/turmas';
@@ -22,6 +24,13 @@ class App {
   }
 
   middlewares() {
+    this.app.use(
+      cors({
+        origin: `http://localhost:${process.env.FRONT_PORT}`,
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+      })
+    );
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use(logger);
